@@ -1,32 +1,36 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div>
+    <form>
+      <input type="text" name="name" v-model="name">
+      <input type="text" name="age" v-model="age">
+      <h1 @click="test">提交</h1>
+    </form>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+  export default {
+    data() {
+      return {
+        name: '',
+        age: ''
+      }
+    },
+    methods: {
+      test() {
+        let name = this.name;
+        let age = this.age;
+        this.$axios.post('/api/user/addUser', {
+          name: name,
+          age: age
+        }).then(req=>{
+          console.log(req)
+        })				
+      }
+    }
+  }
+</script>
 
-#nav {
-  padding: 30px;
-}
+<style lang="scss" scoped>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
